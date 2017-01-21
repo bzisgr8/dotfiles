@@ -1,0 +1,83 @@
+# ~/.bash_prompt
+#  --------------------------------------------------------------------------
+#
+#  Description: This file holds bash prompt customizations
+#
+#  --------------------------------------------------------------------------
+
+
+#  ----------------------
+#  1.  History Options
+#  ----------------------
+
+#  Don't put duplicate lines in the history.
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+
+
+#  Ignore some controlling instructions
+#  HISTIGNORE is a colon-delimited list of patterns which should be excluded.
+#  The '&' is a special pattern which suppresses duplicate entries.
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
+export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
+
+
+# Whenever displaying the prompt, write the previous line to disk
+export PROMPT_COMMAND="history -a"
+
+
+# Prompt is USERNAME {TIME} [Current Directory]
+export PS1="\u {\t} [\w] => "
+
+# Prompt is 
+#PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
+
+case $TERM in
+    xterm*)
+        PS1='\[\e[35m\]\t\[\e[m\] \[\e[0;31m\]\u\[\e[m\]@\[\e[0;31m\]\H\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
+        ;;
+    *)
+        ##PS1="user";
+        ##PS1='\033]2;${USER}@$(hostname -s): ${PWD}\007';
+        # Prompt is USERNAME {TIME} [Current Directory]
+        #export PS1="\u {\t} [\w] => "
+        PS1='\[\e[35m\]\t\[\e[m\] \[\e[0;31m\]\u\[\e[m\]@\[\e[0;31m\]\H\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\e[m\]\[\e[0;32m\]'
+        ;;
+esac
+
+
+#  --------------------------
+#  Website with cool bash power prompt info 
+#  http://www.askapache.com/linux/bash-power-prompt.html
+#  ------------------------------
+
+# PS1="\n\[\e[1;30m\][$$:$PPID - \j:\!\[\e[1;30m\]]\[\e[0;36m\] \T \[\e[1;30m\][\[\e[1;34m\]\u@\H\[\e[1;30m\]:\[\e[0;37m\]${SSH_TTY:-o} \[\e[0;32m\]+${SHLVL}\[\e[1;30m\]] \[\e[1;37m\]\w\[\e[0;37m\] \n\$ "
+
+# Basic POWER PROMPT ^
+#PROMPT_COMMAND='history -a;echo -en "\033[m\033[38;5;2m"$(( `sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024))"\033[38;5;22m/"$((`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024 ))MB"\t\033[m\033[38;5;55m$(< /proc/loadavg)\033[m"' \
+#PS1='\[\e[m\n\e[1;30m\][$$:$PPID \j:\!\[\e[1;30m\]]\[\e[0;36m\] \T \d \[\e[1;30m\][\[\e[1;34m\]\u@\H\[\e[1;30m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;30m\]] \[\e[1;37m\]\w\[\e[0;37m\] \n($SHLVL:\!)\$ '
+
+# Extreme POWER PROMPT ^
+
+# 256 color prompt
+#export PROMPT_COMMAND='echo -en "\033[m\033[38;5;2m"$(( `sed -n "s/MemFree:[\t ]\+\([0-9]\+\) kB/\1/p" /proc/meminfo`/1024))"\033[38;5;22m/"$((`sed -n "s/MemTotal:[\t ]\+\([0-9]\+\) kB/\1/Ip" /proc/meminfo`/1024 ))MB"\t\033[m\033[38;5;55m$(< /proc/loadavg)\033[m"' 
+#export PS1='\[\e[m\n\e[1;30m\][$$:$PPID \j:\!\[\e[1;30m\]]\[\e[0;36m\] \T \d \[\e[1;30m\][\[\e[1;34m\]\u@\H\[\e[1;30m\]:\[\e[0;37m\]${SSH_TTY} \[\e[0;32m\]+${SHLVL}\[\e[1;30m\]] \[\e[1;37m\]\w\[\e[0;37m\] \n($SHLVL:\!)\$ '
+
+#  ------------------------------
+
+##############
+
+#if [ $EUID = 0 ]; then
+#	PS1='\[\e[31m\]\u@\h\[\e[0m\]:\[\e[36m\]\w\[\e[00m\] \$ '
+#	alias rm='rm -i'
+#	alias cp='cp -i'
+#	alias mv='mv -i'
+#else
+#	PS1='\[\e[32m\]\u\[\e[33m\]@\h\[\e[0m\]:\[\e[36m\]\w\[\e[00m\] \$ '
+#fi
+
+# Change the xterm title to match our prompt (without the pwd)
+#echo -ne "\033]2;${USER}@$(hostname -s)\007"
+
+# change the xterm title to match prompt (with the pwd)
+echo -ne "\033]2;${USER}@$(hostname -s): ${PWD}\007";
+#echo -ne "\e]2;$@\a\e]1;$@\a";
