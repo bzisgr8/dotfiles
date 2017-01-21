@@ -1,0 +1,54 @@
+echo ""
+name=`id -F`; thedate=`date`;
+echo -en "Welcome to Unix on Mac OS X, \033[1;36m${name}\033[0m!";
+#echo ""
+echo -en " Today is \033[1;35m${thedate}\033[0m."; #date # "+%m-%d-%Y %H:%M:%S"
+echo ""
+cal=`cal`; today=`date "+%e"`; heading=`date "+%B %G"`;
+#echo -en "${cal/${today}/\033[1;35m${today}\033[0m}";
+#echo "abbc" | sed 's/ab/~~/g; s/bc/ab/g; s/~~/bc/g'
+echo ""
+#echo "${cal}" | sed 's/${today}/\033[1;35m${today}\033[0m/g'
+
+echo -en "${cal/${today}/\033[1;35m${today}\033[0m}";
+echo ""
+echo ""
+#echo -en "heading: ${heading}";
+
+#echo -en "${cal/${heading}/\033[1;35m${heading}\033[0m}";
+# cal
+echo ""
+istats cpu; istats fan; istats battery;
+echo ""
+echo -n "Uptime: "; uptime
+echo ""
+
+archey -c
+
+# print out Network Information
+remoteip=`dig myip.opendns.com @resolver1.opendns.com +short`;
+localip=`ifconfig | awk '{if($1=="inet" && $5=="broadcast") print $2;'}`;
+#localip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'`
+macaddr=`networksetup -getmacaddress Wi-Fi | awk '{print $3}'`;
+
+
+echo -en "\033[38;5;62mLocal IP:\033[0m ${localip}";
+echo ""
+echo -en "\033[38;5;62mRemote IP:\033[0m ${remoteip}";
+echo ""
+echo -en "\033[38;5;63mMAC Address:\033[0m ${macaddr}";
+echo ""
+#echo -en "Serial Number: ${serialnum}";
+
+#echo -n "Outdated Homebrew Packages: ";
+#echo ""; brew outdated;
+#echo -n "Outdated Ruby gems: ";
+#echo ""; gem outdated;
+
+# Prints out a cute fortune saying in a nice rainbow color.
+echo ""
+fortune | lolcat
+echo ""
+# Prints out a cute fortune saying in a cowsay bubble with a nice rainbow coloring.
+fortune | cowsay | lolcat
+echo ""
